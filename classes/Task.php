@@ -116,6 +116,4 @@ class Task
     {
         return $this->current_status;
     }
-
-
 }
