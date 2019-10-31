@@ -10,7 +10,7 @@
   "require": {},
   "autoload": {
     "psr-4": {
-      "task_force\\": "classes"
+      "classes\\": "classes"
     }
   }
 }
