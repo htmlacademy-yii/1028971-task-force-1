@@ -3,9 +3,9 @@ require_once __DIR__ . '\vendor\autoload.php';
 
 use classes\Task;
 
-$task = new Task(1, 'String', 'отказаться', 3, '2019-11-03', 2,);
+$task = new Task(1, 'String', ' ', 3, '2019-11-03', 2,);
 echo '<pre>';
-echo $task->getNextStatus($task::ACTION_REFUSE);
+echo $task->getNextStatus('  ff');
 echo '<pre>';
 echo $task->getCurrentStatus();
 echo '<pre>';

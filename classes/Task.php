@@ -23,22 +23,7 @@ class Task
     const ACTION_FINISHED = 'принять работу';//для заказчика
     const ACTION_SET_EXECUTOR = 'выбрать исполнителя';
     const ACTION_CHAT = 'chat message';
-    //карта действий
-//    const ACTION_MAP = [
-//        self::ROLE_EXECUTOR =>
-//            [
-//                self::ACTION_CHAT,
-//                self::STATUS_NEW => self::ACTION_RESPOND,
-//                self::STATUS_WORK => [self::ACTION_DONE, self::ACTION_REFUSE]
-//            ],
-//        self::ROLE_CUSTOMER =>
-//            [
-//                self::ADD_TASK,
-//                self::ACTION_CHAT,
-//                self::STATUS_NEW => [self::SET_EXECUTOR, self::ACTION_CANCEL],
-//                self::STATUS_WORK => self::ACTION_FINISHED
-//            ]
-//    ];
+
 
     private $customerId;
     private $executorId;
@@ -57,7 +42,7 @@ class Task
         $this->executorId = $executor_id;
     }
 
-    public function getStatuses()
+    public function getStatuses(): array
     {
         return array(
             self::STATUS_NEW,
@@ -83,7 +68,7 @@ class Task
     }
 
 
-    public function getNextStatus($action)
+    public function getNextStatus($action): string
     {
         if (!in_array($action, $this->getActions())) {
             return 'Ошибка';
@@ -112,8 +97,32 @@ class Task
 
     }
 
-    public function getCurrentStatus()
+    public function getCurrentStatus(): string
     {
         return $this->currentStatus;
+    }
+
+
+    public function getAvailableActions($userId): array
+    {
+        if ($userId === $this->customerId) {
+            switch ($this->getCurrentStatus()) {
+                case self::STATUS_NEW:
+                    return $action = [self::ACTION_CANCEL, self::ACTION_SET_EXECUTOR];
+                    break;
+                case self::STATUS_WORK:
+                    return $action = [self::ACTION_FINISHED, self::ACTION_CHAT];
+                    break;
+            }
+        } elseif($this->executorId) {
+            switch ($this->getCurrentStatus()) {
+                case self::STATUS_NEW:
+                    return $action = [self::ACTION_RESPOND, self::ACTION_CHAT];
+                    break;
+                case self::STATUS_WORK:
+                    return $action = [self::ACTION_REFUSE, self::ACTION_DONE];
+                    break;
+            }
+        }
     }
 }
