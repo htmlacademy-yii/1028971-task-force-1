@@ -114,7 +114,7 @@ class Task
                     return $action = [self::ACTION_FINISHED, self::ACTION_CHAT];
                     break;
             }
-        } elseif($this->executorId) {
+        } elseif($userId ===$this->executorId) {
             switch ($this->getCurrentStatus()) {
                 case self::STATUS_NEW:
                     return $action = [self::ACTION_RESPOND, self::ACTION_CHAT];
