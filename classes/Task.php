@@ -92,7 +92,7 @@ class Task
                 return $this->currentStatus = self::STATUS_DONE;
                 break;
             default:
-                $this->currentStatus = self::STATUS_NEW;
+                 return $this->currentStatus = self::STATUS_NEW;
         }
 
     }
@@ -103,26 +103,26 @@ class Task
     }
 
 
-    public function getAvailableActions($userId)
+    public function getAvailableActions($userId): array
     {
         $currentStatus = $this->getCurrentStatus();
         if ($userId === $this->customerId) {
             switch ($currentStatus) {
                 case self::STATUS_NEW:
-                    return $action = [self::ACTION_CANCEL, self::ACTION_SET_EXECUTOR];
-                    break;
+                    return [self::ACTION_CANCEL, self::ACTION_SET_EXECUTOR];
+
                 case self::STATUS_WORK:
-                    return $action = [self::ACTION_FINISHED, self::ACTION_CHAT];
-                    break;
+                    return [self::ACTION_FINISHED, self::ACTION_CHAT];
+
             }
         } elseif ($userId === $this->executorId) {
             switch ($currentStatus) {
                 case self::STATUS_NEW:
-                    return $action = [self::ACTION_RESPOND, self::ACTION_CHAT];
-                    break;
+                    return [self::ACTION_RESPOND, self::ACTION_CHAT];
+
                 case self::STATUS_WORK:
-                    return $action = [self::ACTION_REFUSE, self::ACTION_DONE];
-                    break;
+                    return [self::ACTION_REFUSE, self::ACTION_DONE];
+
             }
         }
     }
