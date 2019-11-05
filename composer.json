@@ -10,7 +10,7 @@
   "require": {},
   "autoload": {
     "psr-4": {
-      "classes\\": "classes"
+      "src\\": "src"
     }
   }
 }

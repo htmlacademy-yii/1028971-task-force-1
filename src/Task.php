@@ -1,7 +1,7 @@
 <?php
 
 
-namespace classes;
+namespace src;
 
 
 class Task
