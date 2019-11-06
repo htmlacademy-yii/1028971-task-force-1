@@ -1,11 +1,16 @@
 {
-    "name": "ula/1028971-task-force-1",
-    "type": "project",
-    "authors": [
-        {
-            "name": "Julia Queen",
-            "email": "youlka25@yandex.ru"
-        }
-    ],
-    "require": {}
+  "name": "ula/1028971-task-force-1",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Julia Queen",
+      "email": "youlka25@yandex.ru"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "src\\": "src"
+    }
+  }
 }
