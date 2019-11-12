@@ -4,6 +4,15 @@ CREATE DATABASE IF NOT EXISTS task_force
 
 USE task_force;
 
+CREATE TABLE IF NOT EXISTS locations
+(
+    location_id         INT NOT NULL AUTO_INCREMENT,
+    location_city       VARCHAR(100) NOT NULL,
+    location_latitude   INT NOT NULL,
+    location_longitude  INT NOT NULL,
+    PRIMARY KEY (location_id)
+);
+
 CREATE TABLE IF NOT EXISTS users
 (
     user_id                INT NOT NULL AUTO_INCREMENT,
@@ -27,39 +36,6 @@ CREATE TABLE IF NOT EXISTS users
     FOREIGN KEY (user_location) REFERENCES locations(location_id)
 );
 
-
-CREATE TABLE IF NOT EXISTS task
-(
-    task_id                INT NOT NULL AUTO_INCREMENT,
-    task_name              VARCHAR(128) NOT NULL,
-    task_description       VARCHAR(512) NOT NULL,
-    task_category          INT UNSIGNED NOT NULL,
-    task_author            INT UNSIGNED NOT NULL,
-    task_files             VARCHAR(512) DEFAULT '',
-    task_location          INT DEFAULT 0,
-    task_creation_date     DATETIME NOT NULL,
-    task_end_date          DATETIME,
-    task_status            INT DEFAULT 1,
-    task_budget            INT UNSIGNED,
-    PRIMARY KEY (task_id),
-    FOREIGN KEY (task_category) REFERENCES categories(category_id),
-    FOREIGN KEY (task_author) REFERENCES users(user_id),
-    FOREIGN KEY (task_executor) REFERENCES users(user_id),
-    FOREIGN KEY (task_location) REFERENCES locations(location_id),
-    FOREIGN KEY (task_status) REFERENCES statuses(status_id)
-
-);
-
-CREATE TABLE IF NOT EXISTS task_in_works
-(
-  id                   INT NOT NULL AUTO_INCREMENT,
-  work_task_id         INT NOT NULL,
-  executor_id          INT NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (work_task_id) REFERENCES task(task_id),
-  FOREIGN KEY (executor_id) REFERENCES users(user_id)
-);
-
 CREATE TABLE IF NOT EXISTS categories
 (
     category_id    TINYINT NOT NULL AUTO_INCREMENT,
@@ -75,14 +51,39 @@ CREATE TABLE IF NOT EXISTS statuses
     PRIMARY KEY (status_id)
 );
 
-CREATE TABLE IF NOT EXISTS locations
+
+CREATE TABLE IF NOT EXISTS task
 (
-    location_id         INT NOT NULL AUTO_INCREMENT,
-    location_city       VARCHAR(100) NOT NULL,
-    location_latitude   INT NOT NULL,
-    location_longitude  INT NOT NULL,
-    PRIMARY KEY (location_id)
+    task_id                INT NOT NULL AUTO_INCREMENT,
+    task_name              VARCHAR(128) NOT NULL,
+    task_description       VARCHAR(512) NOT NULL,
+    task_category          TINYINT NOT NULL,
+    task_author            INT NOT NULL,
+    task_files             VARCHAR(512) DEFAULT '',
+    task_location          INT,
+    task_creation_date     DATETIME NOT NULL,
+    task_end_date          DATETIME,
+    task_status            INT DEFAULT 1,
+    task_budget            INT UNSIGNED,
+    PRIMARY KEY (task_id),
+    FOREIGN KEY (task_category) REFERENCES categories(category_id),
+    FOREIGN KEY (task_author) REFERENCES users(user_id),
+    FOREIGN KEY (task_location) REFERENCES locations(location_id),
+    FOREIGN KEY (task_status) REFERENCES statuses(status_id)
+
 );
+
+CREATE TABLE IF NOT EXISTS task_in_works
+(
+  id                   INT NOT NULL AUTO_INCREMENT,
+  work_task_id         INT NOT NULL,
+  executor_id          INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (work_task_id) REFERENCES task(task_id),
+  FOREIGN KEY (executor_id) REFERENCES users(user_id)
+);
+
+
 
 CREATE TABLE IF NOT EXISTS feedback
 (
@@ -161,7 +162,7 @@ CREATE TABLE IF NOT EXISTS user_portfolio
 CREATE TABLE user_specialization (
 	id              INT(11) NOT NULL AUTO_INCREMENT,
 	user_id         INT(11) NOT NULL,
-	category_id     TINYINT(3) NOT NULL DEFAULT '0',
+	category_id     TINYINT NOT NULL DEFAULT '0',
 	PRIMARY KEY (id),
 	FOREIGN KEY (category_id) REFERENCES categories (category_id),
 	FOREIGN KEY (user_id) REFERENCES users (user_id)
