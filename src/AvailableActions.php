@@ -4,7 +4,7 @@
 namespace src;
 
 
-class Task
+class AvailableActions
 {   //роли
     const ROLE_CUSTOMER = 'заказчик';
     const ROLE_EXECUTOR = 'исполнитель';
@@ -15,15 +15,13 @@ class Task
     const STATUS_DONE = 'выполнено';
     const STATUS_FAILED = 'провалено';
     //действия
-    const ACTION_ADD_TASK = 'добавить задание';
-    const ACTION_RESPOND = 'откликнуться';
-    const ACTION_DONE = 'выполнить';//для исполнителя
-    const ACTION_REFUSE = 'отказаться';
-    const ACTION_CANCEL = 'отменить';
-    const ACTION_FINISHED = 'принять работу';//для заказчика
-    const ACTION_SET_EXECUTOR = 'выбрать исполнителя';
-    const ACTION_CHAT = 'chat message';
-
+    const ACTION_ADD_TASK = AddTaskAction::class;
+    const ACTION_RESPOND = RespondAction::class;
+    const ACTION_REFUSE = RefuseAction::class;
+    const ACTION_CANCEL = CancelAction::class;
+    const ACTION_FINISHED = FinishAction::class;
+    const ACTION_SET_EXECUTOR = SetExecutorAction::class;
+    const ACTION_CHAT = SendMessageAction::class;
 
     private $customerId;
     private $executorId;
@@ -53,18 +51,21 @@ class Task
         );
     }
 
+    public function getCustomerId() {
+        return $this->customerId;
+    }
+
     public function getActions(): array
     {
-        return array(
+        return [
             self::ACTION_ADD_TASK,
             self::ACTION_CANCEL,
             self::ACTION_CHAT,
-            self::ACTION_DONE,
             self::ACTION_FINISHED,
             self::ACTION_REFUSE,
             self::ACTION_RESPOND,
             self::ACTION_SET_EXECUTOR
-        );
+        ];
     }
 
 
@@ -88,11 +89,10 @@ class Task
                 return $this->currentStatus = self::STATUS_FAILED;
                 break;
             case self::ACTION_FINISHED:
-            case self::ACTION_DONE:
                 return $this->currentStatus = self::STATUS_DONE;
                 break;
             default:
-                 return $this->currentStatus = self::STATUS_NEW;
+                return $this->currentStatus = self::STATUS_NEW;
         }
 
     }
@@ -119,10 +119,6 @@ class Task
             switch ($currentStatus) {
                 case self::STATUS_NEW:
                     return [self::ACTION_RESPOND, self::ACTION_CHAT];
-
-                case self::STATUS_WORK:
-                    return [self::ACTION_REFUSE, self::ACTION_DONE];
-
             }
         }
     }

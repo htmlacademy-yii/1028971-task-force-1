@@ -1,8 +1,13 @@
 <?php
 require_once __DIR__ . '\vendor\autoload.php';
 
-use src\Task;
+use src\AvailableActions;
 
-$task = new Task(1, 'String', ' ', 3, '2019-11-03', 2,);
+$task = new AvailableActions(1,
+                            'String',
+                            AvailableActions::STATUS_NEW,
+                            3,
+                            '2019-11-03',
+                            2,);
 echo '<pre>';
-print_r($task);
+print_r($task->getAvailableActions(2));
