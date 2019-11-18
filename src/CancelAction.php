@@ -22,6 +22,6 @@ class CancelAction extends AbstractAction
 
     public static function getTitle()
     {
-       return 'Отменить задание';
+        return 'Отменить задание';
     }
 }

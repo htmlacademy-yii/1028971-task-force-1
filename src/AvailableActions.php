@@ -56,20 +56,6 @@ class AvailableActions
         return $this->customerId;
     }
 
-    public function getActions(): array
-    {
-        return [
-            self::ACTION_ADD_TASK,
-            self::ACTION_CANCEL,
-            self::ACTION_CHAT,
-            self::ACTION_FINISHED,
-            self::ACTION_REFUSE,
-            self::ACTION_RESPOND,
-            self::ACTION_SET_EXECUTOR
-        ];
-    }
-
-
     public function getNextStatus($action): string
     {
         if (!in_array($action, $this->getActions())) {
@@ -98,11 +84,18 @@ class AvailableActions
 
     }
 
-    public function getCurrentStatus(): string
+    public function getActions(): array
     {
-        return $this->currentStatus;
+        return [
+            self::ACTION_ADD_TASK,
+            self::ACTION_CANCEL,
+            self::ACTION_CHAT,
+            self::ACTION_FINISHED,
+            self::ACTION_REFUSE,
+            self::ACTION_RESPOND,
+            self::ACTION_SET_EXECUTOR
+        ];
     }
-
 
     public function getAvailableActions($userId): array
     {
@@ -124,5 +117,10 @@ class AvailableActions
                     return [self::ACTION_CHAT, self::ACTION_REFUSE];
             }
         }
+    }
+
+    public function getCurrentStatus(): string
+    {
+        return $this->currentStatus;
     }
 }

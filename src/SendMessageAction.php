@@ -4,7 +4,7 @@
 namespace src;
 
 
-class SendMessageAction extends  AbstractAction
+class SendMessageAction extends AbstractAction
 {
 
     public static function getAction()
