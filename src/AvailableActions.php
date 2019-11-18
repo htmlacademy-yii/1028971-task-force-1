@@ -51,7 +51,8 @@ class AvailableActions
         );
     }
 
-    public function getCustomerId() {
+    public function getCustomerId()
+    {
         return $this->customerId;
     }
 
@@ -118,7 +119,9 @@ class AvailableActions
         } elseif ($userId === $this->executorId) {
             switch ($currentStatus) {
                 case self::STATUS_NEW:
-                    return [self::ACTION_RESPOND, self::ACTION_CHAT];
+                    return [self::ACTION_RESPOND];
+                case self::STATUS_WORK:
+                    return [self::ACTION_CHAT, self::ACTION_REFUSE];
             }
         }
     }

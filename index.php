@@ -5,7 +5,7 @@ use src\AvailableActions;
 
 $task = new AvailableActions(1,
                             'String',
-                            AvailableActions::STATUS_NEW,
+                            AvailableActions::STATUS_WORK,
                             3,
                             '2019-11-03',
                             2,);
