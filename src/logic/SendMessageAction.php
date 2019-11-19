@@ -1,7 +1,7 @@
 <?php
 
 
-namespace src;
+namespace src\logic;
 
 
 class SendMessageAction extends AbstractAction

@@ -1,20 +1,20 @@
 <?php
 
 
-namespace src;
+namespace src\logic;
 
 
-class RefuseAction extends AbstractAction
+class SetExecutorAction extends AbstractAction
 {
 
     public static function getAction()
     {
-        return 'refuse_action';
+        return 'set_executor';
     }
 
     public static function verifyAccess(AvailableActions $availableActions)
     {
-        if (AvailableActions::STATUS_WORK && AvailableActions::ROLE_EXECUTOR) {
+        if (AvailableActions::STATUS_NEW && AvailableActions::ROLE_CUSTOMER) {
             return true;
         }
         return false;
@@ -22,6 +22,6 @@ class RefuseAction extends AbstractAction
 
     public static function getTitle()
     {
-        return 'Отказаться';
+        return 'Выбрать исполнителя';
     }
 }
