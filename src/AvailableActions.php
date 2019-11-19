@@ -97,10 +97,10 @@ class AvailableActions
         ];
     }
 
-    public function getAvailableActions($userId): array
+    public function getAvailableActions($roles): array
     {
         $currentStatus = $this->getCurrentStatus();
-        if ($userId === $this->customerId) {
+        if ($roles === self::ROLE_CUSTOMER) {
             switch ($currentStatus) {
                 case self::STATUS_NEW:
                     return [self::ACTION_CANCEL, self::ACTION_SET_EXECUTOR];
@@ -109,7 +109,7 @@ class AvailableActions
                     return [self::ACTION_FINISHED, self::ACTION_CHAT];
 
             }
-        } elseif ($userId === $this->executorId) {
+        } elseif ($roles === self::ROLE_EXECUTOR) {
             switch ($currentStatus) {
                 case self::STATUS_NEW:
                     return [self::ACTION_RESPOND];
