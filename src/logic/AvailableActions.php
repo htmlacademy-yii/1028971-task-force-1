@@ -30,7 +30,7 @@ class AvailableActions
     private $taskId;
     private $taskName;
 
-    public function __construct($task_id, $task_name, $current_status, $customer_id, $end_date, $executor_id)
+    public function __construct(int $task_id, string $task_name, string $current_status, int $customer_id, string $end_date, int $executor_id)
     {
         $this->taskId = $task_id;
         $this->taskName = $task_name;
@@ -51,7 +51,7 @@ class AvailableActions
         );
     }
 
-    public function getCustomerId()
+    public function getCustomerId(): int
     {
         return $this->customerId;
     }
@@ -97,7 +97,7 @@ class AvailableActions
         ];
     }
 
-    public function getAvailableActions($roles): array
+    public function getAvailableActions(string $roles): array
     {
         $currentStatus = $this->getCurrentStatus();
         if ($roles === self::ROLE_CUSTOMER) {

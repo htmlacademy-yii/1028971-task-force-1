@@ -7,12 +7,12 @@ namespace src\logic;
 class FinishAction extends AbstractAction
 {
 
-    public static function getAction()
+    public static function getAction(): string
     {
         return 'finish_action';
     }
 
-    public static function verifyAccess(AvailableActions $availableActions)
+    public static function verifyAccess(AvailableActions $availableActions): bool
     {
         if (AvailableActions::STATUS_WORK && AvailableActions::ROLE_CUSTOMER) {
             return true;
@@ -20,7 +20,7 @@ class FinishAction extends AbstractAction
         return false;
     }
 
-    public static function getTitle()
+    public static function getTitle(): string
     {
         return 'Завершить задание';
     }

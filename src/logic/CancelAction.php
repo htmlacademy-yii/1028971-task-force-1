@@ -7,7 +7,7 @@ namespace src\logic;
 class CancelAction extends AbstractAction
 {
 
-    public static function getAction()
+    public static function getAction(): string
     {
         return 'cancel_action';
     }
@@ -20,7 +20,7 @@ class CancelAction extends AbstractAction
         return false;
     }
 
-    public static function getTitle()
+    public static function getTitle(): string
     {
         return 'Отменить задание';
     }

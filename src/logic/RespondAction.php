@@ -7,12 +7,12 @@ namespace src\logic;
 class RespondAction extends AbstractAction
 {
 
-    public static function getAction()
+    public static function getAction(): string
     {
         return 'respond_action';
     }
 
-    public static function verifyAccess(AvailableActions $availableActions)
+    public static function verifyAccess(AvailableActions $availableActions): bool
     {
         if (AvailableActions::STATUS_NEW && AvailableActions::ROLE_EXECUTOR) {
             return true;
@@ -20,7 +20,7 @@ class RespondAction extends AbstractAction
         return false;
     }
 
-    public static function getTitle()
+    public static function getTitle(): string
     {
         return 'Откликнуться';
     }
