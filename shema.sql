@@ -172,3 +172,4 @@ CREATE TABLE user_specialization (
 
 CREATE FULLTEXT INDEX tasks_search ON task (task_name, task_description);
 
+
