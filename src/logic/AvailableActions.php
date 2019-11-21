@@ -91,7 +91,7 @@ class AvailableActions
      * @return string
      * @throws ActionException
      */
-    public function getNextStatus($action): string
+    public function getNextStatus(string $action): string
     {
         if (!in_array($action, $this->getActions())) {
             throw new ActionException('Действие не найдено');
@@ -149,8 +149,7 @@ class AvailableActions
     public function getAvailableActions(
         string $roles,
         string $currentStatus
-    ): array
-    {
+    ): array {
         if (!in_array($roles, $this->getRoles())) {
             throw new ActionException('Нет доступа');
         }
@@ -158,6 +157,7 @@ class AvailableActions
         if (!in_array($currentStatus, $this->getStatuses())) {
             throw new ActionException('Статус не найден');
         }
+
 
         if ($roles === self::ROLE_CUSTOMER) {
             switch ($currentStatus) {
