@@ -4,6 +4,8 @@
 namespace src\logic;
 
 
+use src\exe\ActionException;
+
 class AvailableActions
 {   //роли
     const ROLE_CUSTOMER = 'заказчик';
@@ -30,36 +32,69 @@ class AvailableActions
     private $taskId;
     private $taskName;
 
-    public function __construct(int $task_id, string $task_name, string $current_status, int $customer_id, string $end_date, int $executor_id)
-    {
+
+    /**
+     * @param int $task_id
+     * @param string $task_name
+     * @param string $current_status
+     * @param int $customer_id
+     * @param string $end_date
+     * @throws ActionException
+     */
+    public function __construct(
+        int $task_id,
+        string $task_name,
+        string $current_status,
+        int $customer_id,
+        string $end_date
+    ) {
+        if (!in_array($current_status, $this->getStatuses())) {
+            throw new ActionException('Статус не найден');
+        }
+
         $this->taskId = $task_id;
         $this->taskName = $task_name;
         $this->currentStatus = $current_status;
         $this->customerId = $customer_id;
         $this->endDate = $end_date;
-        $this->executorId = $executor_id;
     }
 
     public function getStatuses(): array
     {
-        return array(
+        return [
             self::STATUS_NEW,
             self::STATUS_WORK,
             self::STATUS_CANCEL,
             self::STATUS_DONE,
             self::STATUS_FAILED
-        );
+        ];
     }
 
-    public function getCustomerId(): int
+    public function getCustomerId()
     {
         return $this->customerId;
     }
 
+    public function getExecutorId()
+    {
+        return $this->executorId;
+    }
+
+    public function getCurrentStatus(): string
+    {
+        return $this->currentStatus;
+    }
+
+
+    /**
+     * @param $action
+     * @return string
+     * @throws ActionException
+     */
     public function getNextStatus($action): string
     {
         if (!in_array($action, $this->getActions())) {
-            return 'Ошибка';
+            throw new ActionException('Действие не найдено');
         }
 
         switch ($action) {
@@ -97,9 +132,33 @@ class AvailableActions
         ];
     }
 
-    public function getAvailableActions(string $roles): array
+    public function getRoles(): array
     {
-        $currentStatus = $this->getCurrentStatus();
+        return [
+            self::ROLE_CUSTOMER,
+            self::ROLE_EXECUTOR
+        ];
+    }
+
+    /**
+     * @param string $roles
+     * @param string $currentStatus
+     * @return array
+     * @throws ActionException
+     */
+    public function getAvailableActions(
+        string $roles,
+        string $currentStatus
+    ): array
+    {
+        if (!in_array($roles, $this->getRoles())) {
+            throw new ActionException('Нет доступа');
+        }
+
+        if (!in_array($currentStatus, $this->getStatuses())) {
+            throw new ActionException('Статус не найден');
+        }
+
         if ($roles === self::ROLE_CUSTOMER) {
             switch ($currentStatus) {
                 case self::STATUS_NEW:
@@ -119,8 +178,5 @@ class AvailableActions
         }
     }
 
-    public function getCurrentStatus(): string
-    {
-        return $this->currentStatus;
-    }
+
 }

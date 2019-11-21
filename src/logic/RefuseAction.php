@@ -12,9 +12,10 @@ class RefuseAction extends AbstractAction
         return 'refuse_action';
     }
 
-    public static function verifyAccess(AvailableActions $availableActions): bool
+    public static function verifyAccess(AvailableActions $availableActions, $userId): bool
     {
-        if (AvailableActions::STATUS_WORK && AvailableActions::ROLE_EXECUTOR) {
+        if ($availableActions->getCurrentStatus() === AvailableActions::STATUS_WORK
+            && $availableActions->getExecutorId() === $userId) {
             return true;
         }
         return false;

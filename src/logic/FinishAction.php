@@ -12,9 +12,10 @@ class FinishAction extends AbstractAction
         return 'finish_action';
     }
 
-    public static function verifyAccess(AvailableActions $availableActions): bool
+    public static function verifyAccess(AvailableActions $availableActions, $userId): bool
     {
-        if (AvailableActions::STATUS_WORK && AvailableActions::ROLE_CUSTOMER) {
+        if (AvailableActions::STATUS_WORK === $availableActions->getCurrentStatus()
+            && $availableActions->getCustomerId() === $userId) {
             return true;
         }
         return false;

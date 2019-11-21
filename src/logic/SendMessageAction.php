@@ -12,9 +12,11 @@ class SendMessageAction extends AbstractAction
         return 'send_message';
     }
 
-    public static function verifyAccess(AvailableActions $availableActions): bool
+    public static function verifyAccess(AvailableActions $availableActions, $userId): bool
     {
-        if (AvailableActions::STATUS_WORK && (AvailableActions::ROLE_CUSTOMER || AvailableActions::ROLE_EXECUTOR)) {
+        if ($availableActions->getCurrentStatus() === AvailableActions::STATUS_WORK
+            && ($availableActions->getCustomerId() === $userId
+                || $availableActions->getExecutorId() === $userId)) {
             return true;
         }
         return false;

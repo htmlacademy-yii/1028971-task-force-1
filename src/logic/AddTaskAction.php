@@ -12,9 +12,10 @@ class AddTaskAction extends AbstractAction
         return 'add_task';
     }
 
-    public static function verifyAccess(AvailableActions $availableActions): bool
+    public static function verifyAccess(AvailableActions $availableActions, int $userId): bool
     {
-        if (AvailableActions::STATUS_NEW && AvailableActions::ROLE_CUSTOMER) {
+        if (AvailableActions::STATUS_NEW === $availableActions->getCurrentStatus()
+            && $availableActions->getCustomerId() === $userId) {
             return true;
         }
         return false;

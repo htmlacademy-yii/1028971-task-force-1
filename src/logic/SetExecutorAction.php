@@ -12,9 +12,10 @@ class SetExecutorAction extends AbstractAction
         return 'set_executor';
     }
 
-    public static function verifyAccess(AvailableActions $availableActions): bool
+    public static function verifyAccess(AvailableActions $availableActions, $userId): bool
     {
-        if (AvailableActions::STATUS_NEW && AvailableActions::ROLE_CUSTOMER) {
+        if ($availableActions->getCurrentStatus() === AvailableActions::STATUS_NEW
+            && $availableActions->getCustomerId() === $userId) {
             return true;
         }
         return false;

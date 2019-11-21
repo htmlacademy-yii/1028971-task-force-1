@@ -12,9 +12,10 @@ class RespondAction extends AbstractAction
         return 'respond_action';
     }
 
-    public static function verifyAccess(AvailableActions $availableActions): bool
+    public static function verifyAccess(AvailableActions $availableActions, $userId): bool
     {
-        if (AvailableActions::STATUS_NEW && AvailableActions::ROLE_EXECUTOR) {
+        if ($availableActions->getCurrentStatus() === AvailableActions::STATUS_NEW
+            && $availableActions->getExecutorId() === $userId) {
             return true;
         }
         return false;
