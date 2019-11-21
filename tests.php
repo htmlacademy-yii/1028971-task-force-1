@@ -14,10 +14,10 @@ try {
     echo $task->getNextStatus(AvailableActions::ACTION_SET_EXECUTOR);
 
 } catch (ActionException $e) {
-    die($e->getMessage());
+    die('В файле '.$e->getFile().' возникла ошибка '.' '.$e->getMessage().' '.' в строке '.$e->getLine());
 }
 
-try {
+
     assert($task->getAvailableActions(AvailableActions::ROLE_CUSTOMER, AvailableActions::STATUS_NEW)
         === [AvailableActions::ACTION_CANCEL, AvailableActions::ACTION_SET_EXECUTOR], 'Если статус НОВЫЙ то для 
         заказчика доступны действия - Cancel и Set executor');
@@ -33,5 +33,4 @@ try {
         === [AvailableActions::ACTION_CHAT, AvailableActions::ACTION_REFUSE],
         'Если статус В РАБОТЕ, то для исполнителя доступно действие Chat и Refuse');
 
-} catch (ActionException $e) {
-}
+
