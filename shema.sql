@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS categories
 (
     category_id    TINYINT NOT NULL AUTO_INCREMENT,
     category_name  VARCHAR(128),
+    category_icon  VARCHAR(20),
     PRIMARY KEY (category_id)
 );
 
