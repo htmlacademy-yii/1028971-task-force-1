@@ -7,7 +7,7 @@ namespace src\logic;
 class FinishAction extends AbstractAction
 {
 
-    public static function getAction(): string
+    public static function getInnerName(): string
     {
         return 'finish_action';
     }

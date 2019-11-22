@@ -7,7 +7,7 @@ namespace src\logic;
 class SetExecutorAction extends AbstractAction
 {
 
-    public static function getAction(): string
+    public static function getInnerName(): string
     {
         return 'set_executor';
     }

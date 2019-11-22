@@ -7,7 +7,7 @@ namespace src\logic;
 class RespondAction extends AbstractAction
 {
 
-    public static function getAction(): string
+    public static function getInnerName(): string
     {
         return 'respond_action';
     }

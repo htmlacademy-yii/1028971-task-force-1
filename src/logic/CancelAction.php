@@ -7,7 +7,7 @@ namespace src\logic;
 class CancelAction extends AbstractAction
 {
 
-    public static function getAction(): string
+    public static function getInnerName(): string
     {
         return 'cancel_action';
     }

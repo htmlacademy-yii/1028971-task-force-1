@@ -141,16 +141,16 @@ class AvailableActions
     }
 
     /**
-     * @param string $roles
+     * @param string $role
      * @param string $currentStatus
      * @return array
      * @throws ActionException
      */
     public function getAvailableActions(
-        string $roles,
+        string $role,
         string $currentStatus
     ): array {
-        if (!in_array($roles, $this->getRoles())) {
+        if (!in_array($role, $this->getRoles())) {
             throw new ActionException('Нет доступа');
         }
 
@@ -159,7 +159,7 @@ class AvailableActions
         }
 
 
-        if ($roles === self::ROLE_CUSTOMER) {
+        if ($role === self::ROLE_CUSTOMER) {
             switch ($currentStatus) {
                 case self::STATUS_NEW:
                     return [self::ACTION_CANCEL, self::ACTION_SET_EXECUTOR];
@@ -168,7 +168,7 @@ class AvailableActions
                     return [self::ACTION_FINISHED, self::ACTION_CHAT];
 
             }
-        } elseif ($roles === self::ROLE_EXECUTOR) {
+        } elseif ($role === self::ROLE_EXECUTOR) {
             switch ($currentStatus) {
                 case self::STATUS_NEW:
                     return [self::ACTION_RESPOND];
