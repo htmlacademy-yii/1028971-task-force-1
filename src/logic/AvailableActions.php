@@ -4,7 +4,7 @@
 namespace src\logic;
 
 
-use src\exe\ActionException;
+use src\exceptions\ActionException;
 
 class AvailableActions
 {   //роли

@@ -4,140 +4,140 @@ CREATE DATABASE IF NOT EXISTS task_force
 
 USE task_force;
 
-CREATE TABLE IF NOT EXISTS locations
+CREATE TABLE IF NOT EXISTS city
 (
-    location_id         INT NOT NULL AUTO_INCREMENT,
-    location_city       VARCHAR(100) NOT NULL,
-    location_latitude   INT NOT NULL,
-    location_longitude  INT NOT NULL,
-    PRIMARY KEY (location_id)
+    id         INT NOT NULL AUTO_INCREMENT,
+    city       VARCHAR(100) NOT NULL,
+    latitude   INT NOT NULL,
+    longitude  INT NOT NULL,
+    PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS users
+CREATE TABLE IF NOT EXISTS user
 (
-    user_id                INT NOT NULL AUTO_INCREMENT,
-    user_name              VARCHAR(128) NOT NULL,
-    user_reg_date          DATETIME     NOT NULL,
-    user_birthday          DATE,
-    user_email             VARCHAR(128) NOT NULL UNIQUE,
-    user_password          VARCHAR(255) NOT NULL,
-    user_avatar            VARCHAR(512),
-    user_last_activity     DATETIME NOT NULL,
-    user_portfolio         VARCHAR(512),
-    user_info              VARCHAR(512),
-    user_phone             INT,
-    user_skype             VARCHAR(128),
-    user_other_contacts    VARCHAR(128),
-    user_location          INT NOT NULL,
-    hide_contacts          TINYINT(1) NOT NULL DEFAULT 0,
-    hide_profile           TINYINT(1) NOT NULL DEFAULT 0,
-    is_executor            BOOLEAN NOT NULL DEFAULT 0,
-    PRIMARY KEY (user_id),
-    FOREIGN KEY (user_location) REFERENCES locations(location_id)
+    id                INT NOT NULL AUTO_INCREMENT,
+    name              VARCHAR(128) NOT NULL,
+    reg_date          DATETIME     NOT NULL,
+    birthday          DATE,
+    email             VARCHAR(128) NOT NULL UNIQUE,
+    password          VARCHAR(255) NOT NULL,
+    avatar            VARCHAR(512),
+    last_activity     DATETIME NOT NULL,
+    portfolio         VARCHAR(512),
+    info              VARCHAR(512),
+    phone             INT,
+    skype             VARCHAR(128),
+    other_contacts    VARCHAR(128),
+    location_id       INT NOT NULL,
+    hide_contacts     TINYINT(1) NOT NULL DEFAULT 0,
+    hide_profile      TINYINT(1) NOT NULL DEFAULT 0,
+    is_executor       BOOLEAN NOT NULL DEFAULT 0,
+    PRIMARY KEY (id),
+    FOREIGN KEY (location_id) REFERENCES locations(id)
 );
 
-CREATE TABLE IF NOT EXISTS categories
+CREATE TABLE IF NOT EXISTS category
 (
-    category_id    TINYINT NOT NULL AUTO_INCREMENT,
-    category_name  VARCHAR(128),
-    category_icon  VARCHAR(20),
-    PRIMARY KEY (category_id)
+    id    TINYINT NOT NULL AUTO_INCREMENT,
+    name  VARCHAR(128),
+    icon  VARCHAR(20),
+    PRIMARY KEY (id)
 );
 
 
-CREATE TABLE IF NOT EXISTS statuses
+CREATE TABLE IF NOT EXISTS status
 (
-    status_id      INT NOT NULL AUTO_INCREMENT,
-    status_name    VARCHAR(20) NOT NULL,
-    PRIMARY KEY (status_id)
+    id      INT NOT NULL AUTO_INCREMENT,
+    name    VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id)
 );
 
 
 CREATE TABLE IF NOT EXISTS task
 (
-    task_id                INT NOT NULL AUTO_INCREMENT,
-    task_name              VARCHAR(128) NOT NULL,
-    task_description       VARCHAR(512) NOT NULL,
-    task_category          TINYINT NOT NULL,
-    task_author            INT NOT NULL,
-    task_files             VARCHAR(512) DEFAULT '',
-    task_location          INT,
-    task_creation_date     DATETIME NOT NULL,
-    task_end_date          DATETIME,
-    task_status            INT DEFAULT 1,
-    task_budget            INT UNSIGNED,
-    PRIMARY KEY (task_id),
-    FOREIGN KEY (task_category) REFERENCES categories(category_id),
-    FOREIGN KEY (task_author) REFERENCES users(user_id),
-    FOREIGN KEY (task_location) REFERENCES locations(location_id),
-    FOREIGN KEY (task_status) REFERENCES statuses(status_id)
+    id                INT NOT NULL AUTO_INCREMENT,
+    name              VARCHAR(128) NOT NULL,
+    description       VARCHAR(512) NOT NULL,
+    category_id       TINYINT NOT NULL,
+    author_id         INT NOT NULL,
+    files             VARCHAR(512) DEFAULT '',
+    city_id           INT,
+    creation_date     DATETIME NOT NULL,
+    end_date          DATETIME,
+    status_id         INT DEFAULT 1,
+    budget            INT UNSIGNED,
+    PRIMARY KEY (id),
+    FOREIGN KEY (category_id) REFERENCES category(id),
+    FOREIGN KEY (author_id) REFERENCES user(id),
+    FOREIGN KEY (city_id) REFERENCES city(id),
+    FOREIGN KEY (status_id) REFERENCES status(status_id)
 
 );
 
-CREATE TABLE IF NOT EXISTS task_in_works
+CREATE TABLE IF NOT EXISTS work_task
 (
   id                   INT NOT NULL AUTO_INCREMENT,
-  work_task_id         INT NOT NULL,
+  task_id              INT NOT NULL,
   executor_id          INT NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (work_task_id) REFERENCES task(task_id),
-  FOREIGN KEY (executor_id) REFERENCES users(user_id)
+  FOREIGN KEY (task_id) REFERENCES task(id),
+  FOREIGN KEY (executor_id) REFERENCES user(id)
 );
 
 
 
 CREATE TABLE IF NOT EXISTS feedback
 (
-    feedback_id           INT NOT NULL AUTO_INCREMENT,
-    feedback_executor_id  INT,
-    feedback_customer_id  INT,
-    feedback_comment      TEXT,
-    feedback_rate         TINYINT,
-    feedback_date         DATETIME NOT NULL,
-    PRIMARY KEY (feedback_id),
-    FOREIGN KEY (feedback_executor_id) REFERENCES users(user_id),
-    FOREIGN KEY (feedback_customer_id) REFERENCES users(user_id)
+    id           INT NOT NULL AUTO_INCREMENT,
+    executor_id  INT,
+    customer_id  INT,
+    comment      TEXT,
+    rate         TINYINT,
+    date         DATETIME NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (executor_id) REFERENCES user(id),
+    FOREIGN KEY (customer_id) REFERENCES user(id)
 );
 
 CREATE TABLE IF NOT EXISTS bookmarked
 (
-    bookmarked_id          INT NOT NULL AUTO_INCREMENT,
+    id          INT NOT NULL AUTO_INCREMENT,
     user_id                INT,
     bookmarked_user_id     INT,
-    bookmarked_status      BOOLEAN DEFAULT 0,
-    PRIMARY KEY (bookmarked_id),
-    FOREIGN KEY (bookmarked_user_id) REFERENCES users(user_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    is_bookmarked     BOOLEAN DEFAULT 0,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
-CREATE TABLE IF NOT EXISTS messages
+CREATE TABLE IF NOT EXISTS message
 (
-    messages_id            INT NOT NULL AUTO_INCREMENT,
-    messages_time          DATETIME,
-    messages_sender        INT NOT NULL,
-    messages_recipient     INT NOT NULL,
-    messages_text          TEXT NOT NULL,
-    PRIMARY KEY (messages_id),
-    FOREIGN KEY (messages_sender) REFERENCES users(user_id),
-    FOREIGN KEY (messages_recipient) REFERENCES users(user_id)
+    id            INT NOT NULL AUTO_INCREMENT,
+    time          DATETIME,
+    sender_id     INT NOT NULL,
+    recipient_id  INT NOT NULL,
+    text          TEXT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (sender_id) REFERENCES user(id),
+    FOREIGN KEY (recipient_id) REFERENCES user(id)
 );
 
 CREATE TABLE IF NOT EXISTS response
 (
-    response_id            INT NOT NULL AUTO_INCREMENT,
-    response_time          DATETIME NOT NULL,
-    response_executor_id   INT NOT NULL,
-    response_task_id       INT NOT NULL,
-    response_comment       TEXT NOT NULL,
-    PRIMARY KEY (response_id),
-    FOREIGN KEY (response_task_id) REFERENCES task(task_id),
-    FOREIGN KEY (response_executor_id) REFERENCES users(user_id)
+    id            INT NOT NULL AUTO_INCREMENT,
+    time          DATETIME NOT NULL,
+    executor_id   INT NOT NULL,
+    task_id       INT NOT NULL,
+    comment       TEXT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (task_id) REFERENCES task(id),
+    FOREIGN KEY (executor_id) REFERENCES user(id)
 );
 
-CREATE TABLE IF NOT EXISTS notifications
+CREATE TABLE IF NOT EXISTS notification
 (
-    id                     INT NOT NULL AUTO_INCREMENT,
-    notify_name            VARCHAR(128) NOT NULL,
+    id               INT NOT NULL AUTO_INCREMENT,
+    name             VARCHAR(128) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -147,8 +147,8 @@ CREATE TABLE IF NOT EXISTS user_alerts
     alert_id               INT NOT NULL,
     user_id                INT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (alert_id) REFERENCES notifications(id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    FOREIGN KEY (alert_id) REFERENCES notification(id),
+    FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 CREATE TABLE IF NOT EXISTS user_portfolio
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS user_portfolio
     photo_path        VARCHAR(512) NOT NULL,
     user_id           INT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 CREATE TABLE user_specialization (
@@ -165,12 +165,12 @@ CREATE TABLE user_specialization (
 	user_id         INT(11) NOT NULL,
 	category_id     TINYINT NOT NULL DEFAULT '0',
 	PRIMARY KEY (id),
-	FOREIGN KEY (category_id) REFERENCES categories (category_id),
-	FOREIGN KEY (user_id) REFERENCES users (user_id)
+	FOREIGN KEY (category_id) REFERENCES category(id),
+	FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 
 
-CREATE FULLTEXT INDEX tasks_search ON task (task_name, task_description);
+CREATE FULLTEXT INDEX tasks_search ON task(name, description);
 
 

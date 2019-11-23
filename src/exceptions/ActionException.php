@@ -1,7 +1,7 @@
 <?php
 
 
-namespace src\exe;
+namespace src\exceptions;
 
 
 class ActionException extends \Exception
