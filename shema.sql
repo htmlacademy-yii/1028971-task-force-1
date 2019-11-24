@@ -28,12 +28,12 @@ CREATE TABLE IF NOT EXISTS user
     phone             INT,
     skype             VARCHAR(128),
     other_contacts    VARCHAR(128),
-    location_id       INT NOT NULL,
+    city_id           INT NOT NULL,
     hide_contacts     TINYINT(1) NOT NULL DEFAULT 0,
     hide_profile      TINYINT(1) NOT NULL DEFAULT 0,
     is_executor       BOOLEAN NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
-    FOREIGN KEY (location_id) REFERENCES locations(id)
+    FOREIGN KEY (city_id) REFERENCES city(id)
 );
 
 CREATE TABLE IF NOT EXISTS category
