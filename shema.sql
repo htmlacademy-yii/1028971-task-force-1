@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS task_force
+
 CREATE DATABASE IF NOT EXISTS task_force
     DEFAULT CHARACTER SET 'utf8'
     DEFAULT COLLATE 'utf8_general_ci';
@@ -70,7 +72,7 @@ CREATE TABLE IF NOT EXISTS task
     FOREIGN KEY (category_id) REFERENCES category(id),
     FOREIGN KEY (author_id) REFERENCES user(id),
     FOREIGN KEY (city_id) REFERENCES city(id),
-    FOREIGN KEY (status_id) REFERENCES status(status_id)
+    FOREIGN KEY (status_id) REFERENCES status(id)
 
 );
 

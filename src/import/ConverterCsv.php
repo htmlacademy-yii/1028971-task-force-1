@@ -8,7 +8,14 @@ class ConverterCsv
 
     const DIRECTORY_PATH = 'data';
 
+    public static function countRowInFile(string $file_name): int
+    {
+        $file = file($file_name);
+        return count($file) - 1;
+    }
+
     /**
+     *
      * @param string $file_name
      * @param string $table_name
      * @return string
@@ -27,8 +34,8 @@ class ConverterCsv
         if (count($headers) != count($next_line)) {
             foreach ($file as $row) {
                 $empty_fields = array_diff_key($headers, $row);
-                foreach ($empty_fields as $key => &$value) {
-                    $value = rand(1, 10);
+                foreach ($empty_fields as &$value) {
+                    $value = rand(1, self::countRowInFile('data\cities.csv'));
                 }
                 if (!in_array(null, $row) && $row != $headers) {
                     $new_values = "'" . implode("','", array_merge($row, $empty_fields)) . "'";
@@ -40,7 +47,6 @@ class ConverterCsv
                 if (!in_array(null, $row) && $row != $headers) {
                     $values = "'" . implode("','", $row) . "'";
                     $sql .= "INSERT INTO $table_name ($columns) VALUE($values)" . "\n";
-
                 }
             }
         }
