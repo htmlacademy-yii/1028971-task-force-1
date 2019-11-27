@@ -59,11 +59,13 @@ CREATE TABLE IF NOT EXISTS task
 (
     id                INT NOT NULL AUTO_INCREMENT,
     name              VARCHAR(128) NOT NULL,
-    description       VARCHAR(512) NOT NULL,
+    description       TEXT,
     category_id       TINYINT NOT NULL,
     author_id         INT NOT NULL,
     files             VARCHAR(512) DEFAULT '',
-    city_id           INT,
+    latitude          VARCHAR,
+    longitude         VARCHAR,
+    address           TEXT,
     creation_date     DATETIME NOT NULL,
     end_date          DATETIME,
     status_id         INT DEFAULT 1,
@@ -71,7 +73,6 @@ CREATE TABLE IF NOT EXISTS task
     PRIMARY KEY (id),
     FOREIGN KEY (category_id) REFERENCES category(id),
     FOREIGN KEY (author_id) REFERENCES user(id),
-    FOREIGN KEY (city_id) REFERENCES city(id),
     FOREIGN KEY (status_id) REFERENCES status(id)
 
 );
