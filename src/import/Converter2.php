@@ -42,7 +42,7 @@ class Converter2
                 $sql[] = "INSERT INTO $table_name (" . implode(', ', array_keys($lineMap)) . ")
                  VALUES (" . implode(', ', array_map(function (&$value) {
                         return "'" . $value . "'";
-                    }, $lineMap)) . ")";
+                    }, $lineMap)) . ")" . ";";
             }
         }
 
@@ -70,7 +70,20 @@ class Converter2
         return "Добавлено $addedRows строк";
     }
 
+    public static function writeInSqlFile($fileName, $sql)
+    {
+        if (trim(file_get_contents($fileName)) == false) {
+            $file = new SplFileObject($fileName, 'a');
+            $written = 0;
+            foreach ($sql as $value) {
+                $written = $file->fwrite($value . PHP_EOL);
 
+            }
+            return $written;
+        } else {
+           echo 'Данные уже записаны в файл' . '<br>';
+        }
+    }
 
 
 }
