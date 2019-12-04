@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS user
     email             VARCHAR(128) NOT NULL UNIQUE,
     password          VARCHAR(255) NOT NULL,
     avatar            VARCHAR(512),
-    last_activity     DATETIME NOT NULL,
+    last_activity     DATETIME DEFAULT NULL,
     portfolio         VARCHAR(512),
     info              VARCHAR(512),
     phone             INT,
