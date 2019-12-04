@@ -51,10 +51,14 @@ class Converter2
 
     /**
      * @param string $fileName
-     * @param $sql
+     * @param array $sql
      */
     public static function writeInSqlFile(string $fileName, array $sql)
     {
+        $filePath = getcwd() . '/' . $fileName;
+        if (!is_file($filePath)) {
+            touch($filePath);
+        }
         if (trim(file_get_contents(getcwd() . '/' . $fileName)) == false) {
             $file = new SplFileObject($fileName, 'a');
 

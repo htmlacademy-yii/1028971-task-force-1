@@ -1,8 +1,7 @@
 <?php
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR. 'autoload.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 use src\import\Converter2;
-
 
 
 $value_map = [
@@ -86,16 +85,21 @@ $value_map = [
     'comment' => 2
 ];
 
-$sql = Converter2::getSqlFromCsv('data/replies.csv', $value_map, 'feedback');
+$sql = Converter2::getSqlFromCsv('data/opinions.csv', $value_map, 'feedback');
 
 Converter2::writeInSqlFile('data/sql/feedback.sql', $sql);
 
+$value_map = [
+    'executor_id' => function () {
+        return rand(11, 20);
+    },
+    'task_id' => function () {
+        return rand(1, 10);
+    },
+    'time' => 0,
+    'comment' => 2
+];
 
+$sql = Converter2::getSqlFromCsv('data/replies.csv', $value_map, 'response');
 
-
-
-
-
-
-
-
+Converter2::writeInSqlFile('data/sql/response.sql', $sql);
