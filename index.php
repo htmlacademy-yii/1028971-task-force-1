@@ -13,7 +13,7 @@ $value_map = [
 
 $sql = Converter2::getSqlFromCsv('data/cities.csv', $value_map, 'city');
 
-Converter2::writeInSqlFile('data\sql\city.sql', $sql);
+Converter2::writeInSqlFile('data/sql/city.sql', $sql);
 
 $value_map = [
     'email' => 0,
@@ -25,10 +25,10 @@ $value_map = [
     }
 ];
 
-$sql = Converter2::getSqlFromCsv('data\users.csv', $value_map, 'user');
+$sql = Converter2::getSqlFromCsv('data/users.csv', $value_map, 'user');
 
 
-Converter2::writeInSqlFile('data\sql\user.sql', $sql);
+Converter2::writeInSqlFile('data/sql/user.sql', $sql);
 
 
 $value_map = [
@@ -36,18 +36,18 @@ $value_map = [
     'icon' => 1
 ];
 
-$sql = Converter2::getSqlFromCsv('data\categories.csv', $value_map, 'category');
+$sql = Converter2::getSqlFromCsv('data/categories.csv', $value_map, 'category');
 
-Converter2::writeInSqlFile('data\sql\category.sql', $sql);
+Converter2::writeInSqlFile('data/sql/category.sql', $sql);
 
 
 $value_map = [
     'name' => 0
 ];
 
-$sql = Converter2::getSqlFromCsv('data\statuses.csv', $value_map, 'status');
+$sql = Converter2::getSqlFromCsv('data/statuses.csv', $value_map, 'status');
 
-Converter2::writeInSqlFile('data\sql\status.sql', $sql);
+Converter2::writeInSqlFile('data/sql/status.sql', $sql);
 
 
 $value_map = [
@@ -68,9 +68,9 @@ $value_map = [
     }
 ];
 
-$sql = Converter2::getSqlFromCsv('data\tasks.csv', $value_map, 'task');
+$sql = Converter2::getSqlFromCsv('data/tasks.csv', $value_map, 'task');
 
-Converter2::writeInSqlFile('data\sql\task.sql', $sql);
+Converter2::writeInSqlFile('data/sql/task.sql', $sql);
 
 $value_map = [
     'executor_id' => function () {
@@ -86,9 +86,9 @@ $value_map = [
     'comment' => 2
 ];
 
-$sql = Converter2::getSqlFromCsv('data\replies.csv', $value_map, 'feedback');
+$sql = Converter2::getSqlFromCsv('data/replies.csv', $value_map, 'feedback');
 
-Converter2::writeInSqlFile('data\sql\feedback.sql', $sql);
+Converter2::writeInSqlFile('data/sql/feedback.sql', $sql);
 
 
 

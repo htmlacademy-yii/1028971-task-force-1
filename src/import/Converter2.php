@@ -53,7 +53,7 @@ class Converter2
      * @param string $fileName
      * @param $sql
      */
-    public static function writeInSqlFile(string $fileName, array $sql): void
+    public static function writeInSqlFile(string $fileName, array $sql)
     {
         if (trim(file_get_contents(getcwd() . '/' . $fileName)) == false) {
             $file = new SplFileObject($fileName, 'a');
