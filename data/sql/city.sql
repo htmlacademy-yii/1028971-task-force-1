@@ -1,3 +1,4 @@
+
 INSERT INTO city (city, latitude, longitude)
                  VALUES ('Абаза', '52.6517296', '90.0885929');
 INSERT INTO city (city, latitude, longitude)

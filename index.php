@@ -1,7 +1,9 @@
 <?php
-require_once __DIR__ . '\vendor\autoload.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR. 'autoload.php';
 
 use src\import\Converter2;
+
+
 
 $value_map = [
     'city' => 0,
@@ -9,7 +11,7 @@ $value_map = [
     'longitude' => 2
 ];
 
-$sql = Converter2::getSqlFromCsv('data\cities.csv', $value_map, 'city');
+$sql = Converter2::getSqlFromCsv('data/cities.csv', $value_map, 'city');
 
 Converter2::writeInSqlFile('data\sql\city.sql', $sql);
 
@@ -24,7 +26,7 @@ $value_map = [
 ];
 
 $sql = Converter2::getSqlFromCsv('data\users.csv', $value_map, 'user');
-Converter2::insertIntoDB($sql);
+
 
 Converter2::writeInSqlFile('data\sql\user.sql', $sql);
 

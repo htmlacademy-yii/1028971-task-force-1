@@ -1,3 +1,4 @@
+
 INSERT INTO status (name)
                  VALUES ('new');
 INSERT INTO status (name)

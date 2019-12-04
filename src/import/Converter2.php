@@ -4,7 +4,6 @@
 namespace src\import;
 
 use SplFileObject;
-use src\exceptions\ConvertException;
 
 
 class Converter2
@@ -49,39 +48,22 @@ class Converter2
         return $sql;
     }
 
+
     /**
-     * insert data into DB
-     * @param array $sql
-     * @return string
-     * @throws ConvertException
+     * @param string $fileName
+     * @param $sql
      */
-    public static function insertIntoDB(array $sql)
+    public static function writeInSqlFile(string $fileName, array $sql): void
     {
-        $mysql = new \PDO('mysql:host=localhost;dbname=task_force', 'root', '');
-        $addedRows = '';
-
-        if (!$mysql) {
-            throw new ConvertException('Ошибка подключения к базе данных');
-        }
-
-        foreach ($sql as $value) {
-            $addedRows = $mysql->exec($value);
-        }
-        return "Добавлено $addedRows строк";
-    }
-
-    public static function writeInSqlFile($fileName, $sql)
-    {
-        if (trim(file_get_contents($fileName)) == false) {
+        if (trim(file_get_contents(getcwd() . '/' . $fileName)) == false) {
             $file = new SplFileObject($fileName, 'a');
-            $written = 0;
+
             foreach ($sql as $value) {
-                $written = $file->fwrite($value . PHP_EOL);
+                $file->fwrite($value . PHP_EOL);
 
             }
-            return $written;
         } else {
-           echo 'Данные уже записаны в файл' . '<br>';
+            echo 'Данные уже записаны в файл<br>';
         }
     }
 
