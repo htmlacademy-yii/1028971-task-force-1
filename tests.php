@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '\vendor\autoload.php';
 
-use src\exe\ActionException;
+use src\exceptions\ActionException;
 use src\logic\AvailableActions;
 
 try {

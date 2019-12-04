@@ -7,7 +7,11 @@
       "email": "youlka25@yandex.ru"
     }
   ],
-  "require": {},
+  "require": {
+    "ext-mysqli": "*",
+    "ext-pdo": "*",
+    "ext-mysql_xdevapi": "*"
+  },
   "autoload": {
     "psr-4": {
       "src\\": "src"

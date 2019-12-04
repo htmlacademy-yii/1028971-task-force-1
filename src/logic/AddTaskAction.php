@@ -7,7 +7,7 @@ namespace src\logic;
 class AddTaskAction extends AbstractAction
 {
 
-    public static function getAction(): string
+    public static function getInnerName(): string
     {
         return 'add_task';
     }

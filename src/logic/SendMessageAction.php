@@ -7,7 +7,7 @@ namespace src\logic;
 class SendMessageAction extends AbstractAction
 {
 
-    public static function getAction(): string
+    public static function getInnerName(): string
     {
         return 'send_message';
     }
