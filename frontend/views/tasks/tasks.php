@@ -3,7 +3,7 @@
 /* @var $this yii\web\View */
 $this->title = 'Главная страница';
 $tasks = app\models\Task::findAll(['status_id' => 1]);
-$cat = app\models\Category::find()->one();
+
 ?>
 <main class="page-main">
     <div class="main-container page-container">
@@ -14,7 +14,7 @@ $cat = app\models\Category::find()->one();
                     <div class="new-task__card">
                         <div class="new-task__title">
                             <a href="#" class="link-regular"><h2> <?= $task['name'] ?></h2></a>
-                            <a class="new-task__type link-regular" href="#"><p><?= $cat['name']; //todo get Category ?></p></a>
+                            <a class="new-task__type link-regular" href="#"><p><?= $task->category->name //todo get Category ?></p></a>
                         </div>
                         <div class="new-task__icon new-task__icon--translation"></div>
                         <p class="new-task_description">
