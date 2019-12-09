@@ -13,7 +13,7 @@ $tasks = app\models\Task::find()->where(['status_id' => 1])->orderBy('creation_d
                 <?php foreach ($tasks as $task):?>
                     <div class="new-task__card">
                         <div class="new-task__title">
-                            <a href="#" class="link-regular"><h2> <?= $task['name'] ?></h2></a>
+                            <a href="#" class="link-regular"><h2> <?= ucfirst($task['name']) ?></h2></a>
                             <a class="new-task__type link-regular" href="#"><p><?= $task->category->name //todo get Category ?></p></a>
                         </div>
                         <div class="new-task__icon new-task__icon--translation"></div>
@@ -22,7 +22,7 @@ $tasks = app\models\Task::find()->where(['status_id' => 1])->orderBy('creation_d
                         </p>
                         <b class="new-task__price new-task__price--translation"><?= $task['budget']?><b> ₽</b></b>
                         <p class="new-task__place"><?= $task['address'] ?></p>
-                        <span class="new-task__time"><?= date( 'd.m.Y',strtotime($task['creation_date'])) ?></span>
+                        <span class="new-task__time"><?= date( 'd.m.y',strtotime($task['creation_date'])) ?></span>
                     </div>
                 <?php endforeach; ?>
             </div>
