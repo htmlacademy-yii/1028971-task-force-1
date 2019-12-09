@@ -14,7 +14,7 @@ $tasks = app\models\Task::find()->where(['status_id' => 1])->orderBy('creation_d
                     <div class="new-task__card">
                         <div class="new-task__title">
                             <a href="#" class="link-regular"><h2> <?= ucfirst($task['name']) ?></h2></a>
-                            <a class="new-task__type link-regular" href="#"><p><?= $task->category->name //todo get Category ?></p></a>
+                            <a class="new-task__type link-regular" href="#"><p><?= $task->category->name  ?></p></a>
                         </div>
                         <div class="new-task__icon new-task__icon--translation"></div>
                         <p class="new-task_description">
