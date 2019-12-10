@@ -86,13 +86,14 @@ AppAsset::register($this);
                 </ul>
             </div>
             <div class="header__town">
-                <select class="multiple-select input town-select" size="1" name="town[]">
-                    <option value="Moscow">Москва</option>
-                    <option selected value="SPB">Санкт-Петербург</option>
-                    <option value="Krasnodar">Краснодар</option>
-                    <option value="Irkutsk">Иркутск</option>
-                    <option value="Vladivostok">Владивосток</option>
-                </select>
+                <label>
+                    <?php $cities = app\models\City::find()->asArray()->all(); ?>
+                    <select class="multiple-select input town-select" size="1" name="town[]">
+                        <?php foreach ($cities as $city): ?>
+                            <option value="Moscow"><?= $city['city']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </label>
             </div>
             <div class="header__lightbulb"></div>
             <div class="lightbulb__pop-up">
@@ -117,7 +118,7 @@ AppAsset::register($this);
                          alt="Аватар пользователя">
                 </a>
                 <span class="header__account-name">
-                 Василий
+                 <?php print app\models\User::findOne(2)->name ?>
              </span>
             </div>
             <div class="account__pop-up">
