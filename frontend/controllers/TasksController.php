@@ -8,8 +8,10 @@ use app\models\Task;
 
 class TasksController extends Controller
 {
-    public function actionTasks()
+    public function actionIndex()
     {
-        return $this->render('tasks');
+        $tasks = Task::find()->where(['status_id' => 1])->orderBy('creation_date DESC')->all();
+
+        return $this->render('index', ['tasks' => $tasks]);
     }
 }

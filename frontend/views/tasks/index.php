@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 $this->title = 'Главная страница';
-$tasks = app\models\Task::find()->where(['status_id' => 1])->orderBy('creation_date DESC')->all();
+
 
 ?>
 <main class="page-main">
