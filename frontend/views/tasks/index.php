@@ -3,14 +3,14 @@
 /* @var $this yii\web\View */
 $this->title = 'Главная страница';
 
-
 ?>
 <main class="page-main">
     <div class="main-container page-container">
         <section class="new-task">
             <div class="new-task__wrapper">
                 <h1>Новые задания</h1>
-                <?php foreach ($tasks as $task):?>
+                <?php /** @var frontend\controllers\TasksController $tasks */
+                foreach ($tasks as $task):?>
                     <div class="new-task__card">
                         <div class="new-task__title">
                             <a href="#" class="link-regular"><h2> <?= ucfirst($task['name']) ?></h2></a>
