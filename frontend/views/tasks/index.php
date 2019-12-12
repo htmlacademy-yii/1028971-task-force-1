@@ -54,6 +54,11 @@ $this->title = 'Главная страница';
                         <label for="5">Выгул животных </label>
                     </fieldset>
                     <fieldset class="search-task__categories">
+                        <legend>Мой город</legend>
+                        <input class="visually-hidden checkbox__input" id="my_city" type="checkbox" name="" value="" checked>
+                        <label for="my_city">Только мой город</label>
+                    </fieldset>
+                    <fieldset class="search-task__categories">
                         <legend>Дополнительно</legend>
                         <input class="visually-hidden checkbox__input" id="6" type="checkbox" name="" value="">
                         <label for="6">Без исполнителя </label>
