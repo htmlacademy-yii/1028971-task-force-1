@@ -2,19 +2,19 @@
 
 /* @var $this yii\web\View */
 $this->title = 'Главная страница';
-$tasks = app\models\Task::findAll(['status_id' => 1]);
-$cat = app\models\Category::find()->all();
+
 ?>
 <main class="page-main">
     <div class="main-container page-container">
         <section class="new-task">
             <div class="new-task__wrapper">
                 <h1>Новые задания</h1>
-                <?php foreach ($tasks as $task):?>
+                <?php /** @var frontend\controllers\TasksController $tasks */
+                foreach ($tasks as $task):?>
                     <div class="new-task__card">
                         <div class="new-task__title">
-                            <a href="#" class="link-regular"><h2> <?= $task['name'] ?></h2></a>
-                            <a class="new-task__type link-regular" href="#"><p><?php // todo 'Категория' ?></p></a>
+                            <a href="#" class="link-regular"><h2> <?= ucfirst($task['name']) ?></h2></a>
+                            <a class="new-task__type link-regular" href="#"><p><?= $task->category->name  ?></p></a>
                         </div>
                         <div class="new-task__icon new-task__icon--translation"></div>
                         <p class="new-task_description">
@@ -22,7 +22,7 @@ $cat = app\models\Category::find()->all();
                         </p>
                         <b class="new-task__price new-task__price--translation"><?= $task['budget']?><b> ₽</b></b>
                         <p class="new-task__place"><?= $task['address'] ?></p>
-                        <span class="new-task__time"><?= date( 'd.m.Y',strtotime($task['creation_date'])) ?></span>
+                        <span class="new-task__time"><?= date( 'd.m.y',strtotime($task['creation_date'])) ?></span>
                     </div>
                 <?php endforeach; ?>
             </div>
