@@ -42,16 +42,11 @@ $this->title = 'Главная страница';
                 <form class="search-task__form" name="test" method="post" action="#">
                     <fieldset class="search-task__categories">
                         <legend>Категории</legend>
-                        <input class="visually-hidden checkbox__input" id="1" type="checkbox" name="" value="" checked>
-                        <label for="1">Курьерские услуги </label>
-                        <input class="visually-hidden checkbox__input" id="2" type="checkbox" name="" value="" checked>
-                        <label for="2">Грузоперевозки </label>
-                        <input class="visually-hidden checkbox__input" id="3" type="checkbox" name="" value="">
-                        <label for="3">Переводы </label>
-                        <input class="visually-hidden checkbox__input" id="4" type="checkbox" name="" value="">
-                        <label for="4">Строительство и ремонт </label>
-                        <input class="visually-hidden checkbox__input" id="5" type="checkbox" name="" value="">
-                        <label for="5">Выгул животных </label>
+                        <?php /** @var frontend\controllers\TasksController $categories */
+                        foreach ($categories as $category): ?>
+                        <input class="visually-hidden checkbox__input" id="1" type="checkbox" name="" value="">
+                        <label for="1"><?= $category['name'] ?></label>
+                        <?php endforeach; ?>
                     </fieldset>
                     <fieldset class="search-task__categories">
                         <legend>Мой город</legend>
