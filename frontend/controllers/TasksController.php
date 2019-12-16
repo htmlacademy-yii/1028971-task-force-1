@@ -18,13 +18,14 @@ class TasksController extends Controller
 
         if (Yii::$app->request->getIsPost()) {
             $searchModel->load(Yii::$app->request->post());
-            $filterCategories = is_array($searchModel->categories) ? array_map('intval', $searchModel->categories) : [];
+            $filterCategories = is_array($searchModel->categories)
+                ? array_map('intval',
+                    $searchModel->categories) : [];
         }
 
         $tasks = Task::find()
             ->where(['status_id' => 1])
             ->joinWith('category')
-            ->joinWith('city')
             ->orderBy('creation_date DESC');
 
         if ($filterCategories) {
@@ -54,8 +55,10 @@ class TasksController extends Controller
         if ($searchModel->searchTask) {
             $tasks->andWhere("MATCH(tasks.name) AGAINST ('$searchModel->searchTask')");
         }
+
         $tasks = $tasks->all();
 
-        return $this->render('index', compact('tasks'));
+
+        return $this->render('index', compact('tasks', 'searchModel'));
     }
 }

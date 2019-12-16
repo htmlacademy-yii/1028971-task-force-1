@@ -4,6 +4,9 @@
 $this->title = 'Главная страница';
 Yii::$app->formatter->language = 'ru-RU';
 
+use yii\widgets\ActiveForm;
+use yii\widgets\ActiveField;
+
 ?>
 <main class="page-main">
     <div class="main-container page-container">
@@ -40,6 +43,7 @@ Yii::$app->formatter->language = 'ru-RU';
         </section>
         <section class="search-task">
             <div class="search-task__wrapper">
+
                 <form class="search-task__form" name="test" method="post" action="#">
                     <fieldset class="search-task__categories">
                         <legend>Категории</legend>
