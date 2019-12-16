@@ -1,7 +1,5 @@
 <?php
 
-use yii\widgets\ActiveForm;
-
 /* @var $this yii\web\View */
 $this->title = 'Главная страница';
 Yii::$app->formatter->language = 'ru-RU';
@@ -17,15 +15,15 @@ Yii::$app->formatter->language = 'ru-RU';
                     <div class="new-task__card">
                         <div class="new-task__title">
                             <a href="#" class="link-regular"><h2> <?= ucfirst($task->name) ?></h2></a>
-                            <a class="new-task__type link-regular" href="#"><p><?= $task->category->name  ?></p></a>
+                            <a class="new-task__type link-regular" href="#"><p><?= $task->category->name ?></p></a>
                         </div>
                         <div class="new-task__icon new-task__icon--<?= $task->category->icon ?>"></div>
                         <p class="new-task_description">
-                            <?= $task->description?>
+                            <?= $task->description ?>
                         </p>
-                        <b class="new-task__price new-task__price--translation"><?= $task->budget?><b> ₽</b></b>
+                        <b class="new-task__price new-task__price--translation"><?= $task->budget ?><b> ₽</b></b>
                         <p class="new-task__place"><?= $task->address ? $task->address : "Удаленная работа"; ?></p>
-                        <span class="new-task__time"><?= date( 'd.m.y',strtotime($task->creation_date)) ?></span>
+                        <span class="new-task__time"><?= date('d.m.y', strtotime($task->creation_date)) ?></span>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -45,15 +43,15 @@ Yii::$app->formatter->language = 'ru-RU';
                 <form class="search-task__form" name="test" method="post" action="#">
                     <fieldset class="search-task__categories">
                         <legend>Категории</legend>
-                        <?php /** @var frontend\controllers\TasksController $categories */
-                        foreach ($categories as $category): ?>
+
                         <input class="visually-hidden checkbox__input" id="1" type="checkbox" name="" value="">
-                        <label for="1"><?= $category['name'] ?></label>
-                        <?php endforeach; ?>
+                        <label for="1"></label>
+
                     </fieldset>
                     <fieldset class="search-task__categories">
                         <legend>Мой город</legend>
-                        <input class="visually-hidden checkbox__input" id="my_city" type="checkbox" name="" value="" checked>
+                        <input class="visually-hidden checkbox__input" id="my_city" type="checkbox" name="" value=""
+                               checked>
                         <label for="my_city">Только мой город</label>
                     </fieldset>
                     <fieldset class="search-task__categories">

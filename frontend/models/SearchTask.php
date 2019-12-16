@@ -12,17 +12,15 @@ class SearchTask extends Model
 {
     public $categories = [];
     public $myCity = null;
-    public $isStatusNew = null;
     public $remoteWork = null;
-    public $period = null;
+    public $period = 'all';
     public $searchTask = null;
 
     public function attributeLabels()
     {
         return [
-            'categories' => 'категории',
+            'categories' => 'Категории',
             'myCity' => 'Мой город',
-            'isStatusNew' => 'Без исполнителя',
             'remoteWork' => 'Удаленная работа',
             'period' => 'Период',
             'searchTask' => 'Поиск по названию'
@@ -32,7 +30,7 @@ class SearchTask extends Model
     public function rules()
     {
         return [
-            [['categories', 'myCity', 'isStatusNew', 'remoteWork', 'period', 'searchTask'], 'safe'],
+            [['categories', 'myCity', 'remoteWork', 'period', 'searchTask'], 'safe'],
             [['myCity', 'isStatusNew', 'remoteWork'], 'boolean'],
             ['searchTask', 'string', 'length' => [5]]
         ];
