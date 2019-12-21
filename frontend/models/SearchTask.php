@@ -32,7 +32,7 @@ class SearchTask extends Model
         return [
             [['categories', 'myCity', 'remoteWork', 'period', 'searchTask'], 'safe'],
             [['myCity', 'isStatusNew', 'remoteWork'], 'boolean'],
-            ['searchTask', 'string', 'length' => [5]]
+            ['searchTask', 'string']
         ];
     }
 

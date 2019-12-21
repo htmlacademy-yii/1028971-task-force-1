@@ -37,23 +37,23 @@ class TasksController extends Controller
         }
 
         if ($searchModel->remoteWork) {
-            $tasks->andWhere(['is', 'address', null]);
+            $tasks->andWhere(['is', 'city_id', null]);
         }
 
         switch ($searchModel->period) {
             case 'day':
-                $tasks->andWhere(['>', 'creation_data', new Expression('CURRENT_TIMESTAMP() - INTERVAL 1 DAY')]);
+                $tasks->andWhere(['>', 'creation_date', new Expression('CURRENT_TIMESTAMP() - INTERVAL 1 DAY')]);
                 break;
             case 'week':
-                $tasks->andWhere(['>', 'creation_data', new Expression('CURRENT_TIMESTAMP() - INTERVAL 7 DAY')]);
+                $tasks->andWhere(['>', 'creation_date', new Expression('CURRENT_TIMESTAMP() - INTERVAL 7 DAY')]);
                 break;
             case 'month':
-                $tasks->andWhere(['>', 'creation_data', new Expression('CURRENT_TIMESTAMP() - INTERVAL 30 DAY')]);
+                $tasks->andWhere(['>', 'creation_date', new Expression('CURRENT_TIMESTAMP() - INTERVAL 30 DAY')]);
                 break;
         }
 
         if ($searchModel->searchTask) {
-            $tasks->andWhere("MATCH(tasks.name) AGAINST ('$searchModel->searchTask')");
+            $tasks->andWhere("MATCH(task.description, task.name) AGAINST ($searchModel->searchTask)");
         }
 
         $tasks = $tasks->all();
