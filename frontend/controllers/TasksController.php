@@ -8,6 +8,7 @@ use app\models\Task;
 use Yii;
 use yii\db\Expression;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class TasksController extends Controller
 {
@@ -60,5 +61,15 @@ class TasksController extends Controller
 
 
         return $this->render('index', compact('tasks', 'searchModel'));
+    }
+
+    public function actionShow($id)
+    {
+        $task = Task::findOne($id);
+        if (!$task) {
+            throw new NotFoundHttpException("Задание с ID $id не найдено");
+        }
+
+        return $this->render('show', ['task' => $task]);
     }
 }

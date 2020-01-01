@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
                 foreach ($tasks as $task):?>
                     <div class="new-task__card">
                         <div class="new-task__title">
-                            <a href="#" class="link-regular"><h2> <?= ucfirst($task->name) ?></h2></a>
+                            <a href="<?= 'http://task-force.ru/tasks/show?id=' . $task->id ?>" class="link-regular"><h2> <?= ucfirst($task->name) ?></h2></a>
                             <a class="new-task__type link-regular" href="#"><p><?= $task->category->name ?></p></a>
                         </div>
                         <div class="new-task__icon new-task__icon--<?= $task->category->icon ?>"></div>
