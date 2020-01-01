@@ -53,7 +53,7 @@ class TasksController extends Controller
         }
 
         if ($searchModel->searchTask) {
-            $tasks->andWhere("MATCH(task.description, task.name) AGAINST ($searchModel->searchTask)");
+            $tasks->andWhere("MATCH(task.description, task.name) AGAINST ('$searchModel->searchTask')");
         }
 
         $tasks = $tasks->all();
