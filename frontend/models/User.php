@@ -73,11 +73,11 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Имя',
             'reg_date' => 'Reg Date',
             'birthday' => 'Birthday',
-            'email' => 'Email',
-            'password' => 'Password',
+            'email' => 'Электронная почта',
+            'password' => 'Пароль',
             'avatar' => 'Avatar',
             'last_activity' => 'Last Activity',
             'portfolio' => 'Portfolio',
