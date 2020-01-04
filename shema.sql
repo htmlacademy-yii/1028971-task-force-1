@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS user
     phone             INT,
     skype             VARCHAR(128),
     other_contacts    VARCHAR(128),
-    city_id           INT NOT NULL,
+    city_id           INT,
     hide_contacts     TINYINT(1) NOT NULL DEFAULT 0,
     hide_profile      TINYINT(1) NOT NULL DEFAULT 0,
     is_executor       BOOLEAN NOT NULL DEFAULT 0,
