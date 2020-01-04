@@ -1,11 +1,10 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $model app\models\User */
+/* @var $model frontend\models\SignupForm */
 
 
 $this->title = 'Регистрация аккаунта';
-Yii::$app->formatter->language = 'ru-RU';
 
 use yii\widgets\ActiveForm;
 
@@ -20,12 +19,12 @@ use yii\widgets\ActiveForm;
         ]) ?>
 
         <?= $form->field($model, 'email')
-            ->textarea(['name' => '', 'placeholder' => 'kumarm@mail.ru', 'id' => 16, 'rows' => 1])
+            ->textInput(['name' => 'email', 'placeholder' => 'kumarm@mail.ru', 'id' => 16, 'rows' => 1])
             ->label('Электронная почта')
             ->hint('Введите валидный адрес электронной почты', ['tag' => 'span']) ?>
 
         <?= $form->field($model, 'name')
-            ->textarea(['name' => '', 'placeholder' => 'Мамедов Кумар', 'id' => 17, 'rows' => 1])
+            ->textInput(['name' => 'name', 'placeholder' => 'Мамедов Кумар', 'id' => 17, 'rows' => 1])
             ->label('Ваше имя')
             ->hint('Введите ваше имя и фамилию', ['tag' => 'span']) ?>
 
@@ -35,22 +34,27 @@ use yii\widgets\ActiveForm;
             'class' => 'multiple-select input town-select registration-town',
             'id' => 18,
             'size' => 1,
-            'name' => 'town[]'
+            'name' => 'city_id'
         ];
 
         echo $form->field($model, 'city_id')
-            ->ListBox($items, $params)
+            ->dropDownList($items, $params)
             ->label('Город проживания')
             ->hint('Укажите город, чтобы находить подходящие задачи', ['tag' => 'span']) ?>
 
         <?= $form->field($model, 'password')
-            ->passwordInput(['name' => '', 'id' => 19, 'rows' => 1, 'class' => 'input textarea', 'type' => 'password'])
+            ->textInput(['name' => 'password', 'id' => 19, 'rows' => 1, 'class' => 'input textarea', 'type' => 'password'])
             ->label('Пароль')
             ->hint('Длина пароля от 8 символов', ['tag' => 'span'])
 
         ?>
 
-        <button class="button button__registration" type="submit">Cоздать аккаунт</button>
+        <?= $form->field($model, 'reg_date')
+            ->hiddenInput(['name' => 'reg_date', 'value' => date('Y-m-d')])
+            ->label(false);
+        ?>
+
+        <button class="button button__registration" type="submit">Создать аккаунт</button>
         <?php ActiveForm::end(); ?>
     </div>
 </section>

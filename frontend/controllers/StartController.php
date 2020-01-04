@@ -3,11 +3,9 @@
 
 namespace frontend\controllers;
 
-use app\models\User;
-use yii\web\Response;
+use frontend\models\SignupForm;
 use Yii;
 use yii\web\Controller;
-use yii\widgets\ActiveForm;
 
 class StartController extends Controller
 {
@@ -20,20 +18,19 @@ class StartController extends Controller
     public function actionSignup()
     {
         $this->layout = 'signup';
-        $user = new User();
-        if (Yii::$app->request->getIsPost()) {
-            $user->load(Yii::$app->request->post());
-            if (Yii::$app->request->isAjax) {
-                Yii::$app->response->format = Response::FORMAT_JSON;
+        $model = new SignupForm();
 
-                return ActiveForm::validate($user);
+        if (Yii::$app->request->getIsPost()) {
+            $model->attributes = Yii::$app->request->post();
+            if ($model->validate()) {
+                $model->signup();
             }
-            if ($user->validate()) {
-                $user->save();
-            }
+
+            return $this->redirect('/tasks');
+
         }
 
-        return $this->render('signup', ['model' => $user]);
+        return $this->render('signup', ['model' => $model]);
     }
 
 }
