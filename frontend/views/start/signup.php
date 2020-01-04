@@ -43,15 +43,16 @@ use yii\widgets\ActiveForm;
             ->hint('Укажите город, чтобы находить подходящие задачи', ['tag' => 'span']) ?>
 
         <?= $form->field($model, 'password')
-            ->textInput(['name' => 'password', 'id' => 19, 'rows' => 1, 'class' => 'input textarea', 'type' => 'password'])
+            ->textInput([
+                'name' => 'password',
+                'id' => 19,
+                'rows' => 1,
+                'class' => 'input textarea',
+                'type' => 'password'
+            ])
             ->label('Пароль')
             ->hint('Длина пароля от 8 символов', ['tag' => 'span'])
 
-        ?>
-
-        <?= $form->field($model, 'reg_date')
-            ->hiddenInput(['name' => 'reg_date', 'value' => date('Y-m-d')])
-            ->label(false);
         ?>
 
         <button class="button button__registration" type="submit">Создать аккаунт</button>
