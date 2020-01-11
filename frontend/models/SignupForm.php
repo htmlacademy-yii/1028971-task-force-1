@@ -14,7 +14,6 @@ class SignupForm extends Model
     public $email;
     public $password;
     public $city_id;
-    public $reg_date;
 
     public static function tableName()
     {
@@ -72,7 +71,7 @@ class SignupForm extends Model
         $user->name = $this->name;
         $user->email = $this->email;
         $user->city_id = $this->city_id;
-        $user->reg_date = $this->reg_date;
+        $user->reg_date = date('Y-m-d H:i:s');
         $user->password = password_hash($this->password,PASSWORD_DEFAULT);
         return $user->save(false);
 

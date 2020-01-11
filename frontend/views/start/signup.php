@@ -19,12 +19,12 @@ use yii\widgets\ActiveForm;
         ]) ?>
 
         <?= $form->field($model, 'email')
-            ->textInput(['name' => 'email', 'placeholder' => 'kumarm@mail.ru', 'id' => 16, 'rows' => 1])
+            ->textInput(['name' => 'email', 'type' => 'email', 'placeholder' => 'kumarm@mail.ru', 'id' => 16])
             ->label('Электронная почта')
             ->hint('Введите валидный адрес электронной почты', ['tag' => 'span']) ?>
 
         <?= $form->field($model, 'name')
-            ->textInput(['name' => 'name', 'placeholder' => 'Мамедов Кумар', 'id' => 17, 'rows' => 1])
+            ->textInput(['name' => 'name', 'type' => 'text', 'placeholder' => 'Мамедов Кумар', 'id' => 17])
             ->label('Ваше имя')
             ->hint('Введите ваше имя и фамилию', ['tag' => 'span']) ?>
 
@@ -33,8 +33,9 @@ use yii\widgets\ActiveForm;
         $params = [
             'class' => 'multiple-select input town-select registration-town',
             'id' => 18,
+            'name' => 'city_id',
             'size' => 1,
-            'name' => 'city_id'
+            'prompt' => 'Город не выбран',
         ];
 
         echo $form->field($model, 'city_id')
@@ -43,15 +44,15 @@ use yii\widgets\ActiveForm;
             ->hint('Укажите город, чтобы находить подходящие задачи', ['tag' => 'span']) ?>
 
         <?= $form->field($model, 'password')
-            ->textInput(['name' => 'password', 'id' => 19, 'rows' => 1, 'class' => 'input textarea', 'type' => 'password'])
+            ->textInput([
+                'name' => 'password',
+                'id' => 19,
+                'rows' => 1,
+                'type' => 'password'
+            ])
             ->label('Пароль')
             ->hint('Длина пароля от 8 символов', ['tag' => 'span'])
 
-        ?>
-
-        <?= $form->field($model, 'reg_date')
-            ->hiddenInput(['name' => 'reg_date', 'value' => date('Y-m-d')])
-            ->label(false);
         ?>
 
         <button class="button button__registration" type="submit">Создать аккаунт</button>
