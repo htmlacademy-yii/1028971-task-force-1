@@ -20,12 +20,14 @@ use Yii;
  * @property string|null $end_date
  * @property int|null $status_id
  * @property int|null $budget
+ * @property int|null $city_id
  *
  * @property Response[] $responses
  * @property Category $category
  * @property User $author
  * @property Status $status
  * @property WorkTask[] $workTasks
+ * @property City $city
  */
 class Task extends \yii\db\ActiveRecord
 {
@@ -45,7 +47,7 @@ class Task extends \yii\db\ActiveRecord
         return [
             [['name', 'category_id', 'author_id', 'creation_date'], 'required'],
             [['description', 'address'], 'string'],
-            [['category_id', 'author_id', 'status_id', 'budget'], 'integer'],
+            [['category_id', 'author_id', 'status_id', 'budget', 'city_id'], 'integer'],
             [['creation_date', 'end_date'], 'safe'],
             [['name'], 'string', 'max' => 128],
             [['files'], 'string', 'max' => 512],
@@ -75,6 +77,7 @@ class Task extends \yii\db\ActiveRecord
             'end_date' => 'End Date',
             'status_id' => 'Status ID',
             'budget' => 'Budget',
+            'city_id' => 'City'
         ];
     }
 
@@ -116,5 +119,13 @@ class Task extends \yii\db\ActiveRecord
     public function getWorkTasks()
     {
         return $this->hasMany(WorkTask::className(), ['task_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCity()
+    {
+        return $this->hasMany(City::className(), ['city_id' => 'id']);
     }
 }

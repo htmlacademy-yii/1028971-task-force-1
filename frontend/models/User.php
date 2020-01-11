@@ -55,7 +55,7 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'reg_date', 'email', 'password', 'city_id'], 'required'],
+            [['name', 'email', 'password'], 'required'],
             [['reg_date', 'birthday', 'last_activity'], 'safe'],
             [['phone', 'city_id', 'hide_contacts', 'hide_profile', 'is_executor'], 'integer'],
             [['name', 'email', 'skype', 'other_contacts'], 'string', 'max' => 128],
@@ -73,11 +73,11 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Имя',
             'reg_date' => 'Reg Date',
             'birthday' => 'Birthday',
-            'email' => 'Email',
-            'password' => 'Password',
+            'email' => 'Электронная почта',
+            'password' => 'Пароль',
             'avatar' => 'Avatar',
             'last_activity' => 'Last Activity',
             'portfolio' => 'Portfolio',

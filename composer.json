@@ -1,24 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "ula/1028971-task-force-1",
-  "type": "project",
-  "authors": [
-    {
-      "name": "Julia Queen",
-      "email": "youlka25@yandex.ru"
-    }
-  ],
-  "require": {
-    "ext-mysqli": "*",
-    "ext-pdo": "*",
-    "ext-mysql_xdevapi": "*"
-  },
-  "autoload": {
-    "psr-4": {
-      "src\\": "src"
-    }
-  }
-=======
+
     "name": "yiisoft/yii2-app-advanced",
     "description": "Yii 2 Advanced Project Template",
     "keywords": ["yii2", "framework", "advanced", "project template"],
@@ -65,5 +46,5 @@
             "src\\": "src"
         }
     }
->>>>>>> 3611a8f0383e24385f3fd05a434f42477708d935
+
 }
