@@ -52,7 +52,7 @@ AppAsset::register($this);
                 <p>Работа там, где ты!</p>
             </div>
             <div class="header__account--index">
-                <a href="#" class="header__account-enter">
+                <a href="#" class="header__account-enter open-modal">
                     <span>Вход</span></a>
                 или
                 <a href="/start/signup" class="header__account-registration">

@@ -14,11 +14,6 @@ class TasksController extends Controller
 {
     public function actionIndex()
     {
-        $tasks = Task::find()->where(['status_id' => 1])->orderBy('creation_date DESC')->all();
-
-        return $this->render('index', ['tasks' => $tasks]);
-    }
-}
         $filterCategories = null;
         $searchModel = new SearchTask();
 
