@@ -52,7 +52,7 @@ AppAsset::register($this);
                 <p>Работа там, где ты!</p>
             </div>
             <div class="header__account--index">
-                <a href="#" class="header__account-enter open-modal">
+                <a href="#" class="header__account-enter open-modal" data-for="form-modal">
                     <span>Вход</span></a>
                 или
                 <a href="/start/signup" class="header__account-registration">
@@ -266,7 +266,7 @@ AppAsset::register($this);
             </div>
         </div>
     </footer>
-    <section class="modal enter-form form-modal">
+    <section class="modal enter-form form-modal" id="form-modal">
         <h2>Вход на сайт</h2>
         <form action="#" method="post">
             <p>
