@@ -63,14 +63,14 @@ class TasksController extends Controller
         return $this->render('index', compact('tasks', 'searchModel'));
     }
 
-    public function actionShow($id)
+    public function actionView($id)
     {
         $task = Task::findOne($id);
         if (!$task) {
             throw new NotFoundHttpException("Задание с ID $id не найдено");
         }
 
-        return $this->render('show', ['task' => $task]);
+        return $this->render('view', ['task' => $task]);
     }
 }
 

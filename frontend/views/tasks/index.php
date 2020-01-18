@@ -8,6 +8,7 @@ $this->title = 'Главная страница';
 Yii::$app->formatter->language = 'ru-RU';
 
 use app\models\Category;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 ?>
@@ -20,8 +21,8 @@ use yii\widgets\ActiveForm;
                 foreach ($tasks as $task):?>
                     <div class="new-task__card">
                         <div class="new-task__title">
-                            <a href="<?= 'http://task-force.ru/tasks/show?id=' . $task->id ?>" class="link-regular"><h2> <?= ucfirst($task->name) ?></h2></a>
-                            <a class="new-task__type link-regular" href="#"><p><?= $task->category->name ?></p></a>
+                            <a href="<?= Url::to(['tasks/view', 'id'=>$task->id])?>" class="link-regular"> <h2><?= ucfirst($task->name)?></h2></a>
+                            <a class="new-task__type link-regular" href="#"> <p><?= $task->category->name ?></p></a>
                         </div>
                         <div class="new-task__icon new-task__icon--<?= $task->category->icon ?>"></div>
                         <p class="new-task_description">
