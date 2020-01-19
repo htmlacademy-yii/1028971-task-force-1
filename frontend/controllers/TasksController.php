@@ -6,6 +6,7 @@ namespace frontend\controllers;
 use app\models\SearchTask;
 use app\models\Task;
 use Yii;
+use yii\data\Pagination;
 use yii\db\Expression;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -24,43 +25,44 @@ class TasksController extends Controller
                     $searchModel->categories) : [];
         }
 
-        $tasks = Task::find()
+        $query = Task::find()
             ->where(['status_id' => 1])
             ->joinWith('category')
             ->orderBy('creation_date DESC');
 
         if ($filterCategories) {
-            $tasks->andWhere(['category_id' => $filterCategories]);
+            $query->andWhere(['category_id' => $filterCategories]);
         }
 
         if ($searchModel->myCity) {
-            $tasks->andWhere(['city_id' => 396]); //todo заменить на id из профиля пользователя
+            $query->andWhere(['city_id' => 396]); //todo заменить на id из профиля пользователя
         }
 
         if ($searchModel->remoteWork) {
-            $tasks->andWhere(['is', 'city_id', null]);
+            $query->andWhere(['is', 'city_id', null]);
         }
 
         switch ($searchModel->period) {
             case 'day':
-                $tasks->andWhere(['>', 'creation_date', new Expression('CURRENT_TIMESTAMP() - INTERVAL 1 DAY')]);
+                $query->andWhere(['>', 'creation_date', new Expression('CURRENT_TIMESTAMP() - INTERVAL 1 DAY')]);
                 break;
             case 'week':
-                $tasks->andWhere(['>', 'creation_date', new Expression('CURRENT_TIMESTAMP() - INTERVAL 7 DAY')]);
+                $query->andWhere(['>', 'creation_date', new Expression('CURRENT_TIMESTAMP() - INTERVAL 7 DAY')]);
                 break;
             case 'month':
-                $tasks->andWhere(['>', 'creation_date', new Expression('CURRENT_TIMESTAMP() - INTERVAL 30 DAY')]);
+                $query->andWhere(['>', 'creation_date', new Expression('CURRENT_TIMESTAMP() - INTERVAL 30 DAY')]);
                 break;
         }
 
         if ($searchModel->searchTask) {
-            $tasks->andWhere("MATCH(task.description, task.name) AGAINST ('$searchModel->searchTask')");
+            $query->andWhere("MATCH(task.description, task.name) AGAINST ('$searchModel->searchTask')");
         }
 
-        $tasks = $tasks->all();
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3]);
+        $tasks = $query->offset($pages->offset)->limit($pages->limit)->all();
 
 
-        return $this->render('index', compact('tasks', 'searchModel'));
+        return $this->render('index', compact('tasks', 'searchModel', 'pages'));
     }
 
     public function actionView($id)

@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
+/* @var $pages array*/
 /* @var $searchModel app\models\SearchTask */
 
 
@@ -10,6 +11,7 @@ Yii::$app->formatter->language = 'ru-RU';
 use app\models\Category;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use yii\widgets\LinkPager;
 
 ?>
 <main class="page-main">
@@ -36,12 +38,10 @@ use yii\widgets\ActiveForm;
             </div>
             <div class="new-task__pagination">
                 <ul class="new-task__pagination-list">
-                    <li class="pagination__item"><a href="#"></a></li>
-                    <li class="pagination__item pagination__item--current">
-                        <a>1</a></li>
-                    <li class="pagination__item"><a href="#">2</a></li>
-                    <li class="pagination__item"><a href="#">3</a></li>
-                    <li class="pagination__item"><a href="#"></a></li>
+                    <?= LinkPager::widget([
+                        'pagination' => $pages,
+                        'class' => 'pagination__item'
+                    ]) ?>
                 </ul>
             </div>
         </section>
