@@ -8,6 +8,7 @@ use app\models\Task;
 use Yii;
 use yii\data\Pagination;
 use yii\db\Expression;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -15,6 +16,10 @@ class TasksController extends Controller
 {
     public function actionIndex()
     {
+        if(Yii::$app->user->isGuest) {
+            $this->redirect(Url::to('@web/start'));
+        }
+
         $filterCategories = null;
         $searchModel = new SearchTask();
 
@@ -58,7 +63,7 @@ class TasksController extends Controller
             $query->andWhere("MATCH(task.description, task.name) AGAINST ('$searchModel->searchTask')");
         }
 
-        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3]);
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 6]);
         $tasks = $query->offset($pages->offset)->limit($pages->limit)->all();
 
 
@@ -74,5 +79,17 @@ class TasksController extends Controller
 
         return $this->render('view', ['task' => $task]);
     }
+    /**
+     * Logs out the current user.
+     *
+     * @return mixed
+     */
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->goHome();
+    }
+
 }
 
