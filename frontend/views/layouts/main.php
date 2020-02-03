@@ -4,6 +4,7 @@
 
 /* @var $content string */
 
+use app\models\User;
 use frontend\assets\AppAsset;
 use yii\helpers\Html;
 
@@ -26,7 +27,7 @@ AppAsset::register($this);
     <header class="page-header">
         <div class="main-container page-header__container">
             <div class="page-header__logo">
-                <a href="/tasks">
+                <a href="<?= \yii\helpers\Url::home()?>">
                     <svg class="page-header__logo-image" id="Layer_2" xmlns="http://www.w3.org/2000/svg"
                          viewBox="0 0 1634 646.35">
                         <title>taskforce_logo2-01</title>
@@ -78,8 +79,8 @@ AppAsset::register($this);
                     <li class="site-list__item">
                         <a href="#">Создать задание</a>
                     </li>
-                    <li class="site-list__item site-list__item--active">
-                        <a>Мой профиль</a>
+                    <li class="site-list__item">
+                        <a href="#">Мой профиль</a>
                     </li>
                 </ul>
             </div>
@@ -116,7 +117,7 @@ AppAsset::register($this);
                          alt="Аватар пользователя">
                 </a>
                 <span class="header__account-name">
-                 <?php print app\models\User::findOne(2)->name ?>
+                 <?php print User::findOne(Yii::$app->user->id)->name ?>
              </span>
             </div>
             <div class="account__pop-up">
@@ -128,7 +129,7 @@ AppAsset::register($this);
                         <a href="#">Настройки</a>
                     </li>
                     <li>
-                        <a href="#">Выход</a>
+                        <a href="<?= \yii\helpers\Url::to('/tasks/logout')?>">Выход</a>
                     </li>
                 </ul>
             </div>
